@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <changeSet id="user" author="Mikhail Butorin">
+        <createTable tableName="usr_role">
+            <column name="id" type="int">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+		<insert tableName="usr_role">  
+			<column  name="id"  value="0"/>  
+			<column  name="name"  value="Seller"/>  
+		</insert>  		
+		<insert tableName="usr_role">  
+			<column  name="id"  value="1"/>  
+			<column  name="name"  value="Buyer"/>  
+		</insert>  		
+        <rollback>
+            <dropTable tableName="usr_role"/>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>

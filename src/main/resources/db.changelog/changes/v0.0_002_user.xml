@@ -5,6 +5,13 @@
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
     <changeSet id="user" author="Mikhail Butorin">
+        <createSequence sequenceName="user_seq"
+                        cycle="false"
+                        dataType="bigint"
+                        incrementBy="1"
+                        minValue="0"
+                        startValue="1"
+                        schemaName="public"/>
         <createTable tableName="user">
             <column name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
@@ -35,6 +42,7 @@
                               validate="true"/>
         <rollback>
             <dropTable tableName="user"/>
+            <dropSequence sequenceName="user_seq"/>
         </rollback>
     </changeSet>
 </databaseChangeLog>

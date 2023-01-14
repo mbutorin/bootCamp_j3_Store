@@ -5,15 +5,27 @@
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
     <changeSet id="user" author="Mikhail Butorin">
-        <createSequence sequenceName="gen_user"
+        <createSequence sequenceName="product_grp_seq"
                         cycle="false"
                         dataType="bigint"
                         incrementBy="1"
                         minValue="0"
                         startValue="1"
                         schemaName="public"/>
+        <createTable tableName="product_group">
+            <column name="id" type="int">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="parent_id" type="int">
+                <constraints nullable="true"/>
+            </column>
+            <column name="name" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
         <rollback>
-            <dropSequence sequenceName="generator0"/>
+            <dropTable tableName="product_group"/>
+            <dropSequence sequenceName="product_grp_seq"/>
         </rollback>
     </changeSet>
 </databaseChangeLog>

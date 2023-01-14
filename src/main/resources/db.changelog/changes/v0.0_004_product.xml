@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <changeSet id="user" author="Mikhail Butorin">
+        <createSequence sequenceName="product_seq"
+                        cycle="false"
+                        dataType="bigint"
+                        incrementBy="1"
+                        minValue="0"
+                        startValue="1"
+                        schemaName="public"/>
+        <createTable tableName="product">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="group_id" type="int"/>
+            <column name="producer" type="varchar(100)"/>
+            <column name="type" type="varchar(50)"/>
+            <column name="price" type="number(18,2)" />
+            <column name="qty" type="int" />
+        </createTable>
+        <addForeignKeyConstraint  constraintName="fk_product_grp"
+                                  schemaName="public"
+                                  baseTableName="product"
+                                  baseColumnNames="group_id"
+                                  referencedTableName="product_group"
+                                  referencedColumnNames="id"
+                                  onDelete="RESTRICT"
+                                  onUpdate="RESTRICT"
+                                  validate="true"/>
+<!--        <addCheckConstraint       constraintName="chk_product_price"-->
+<!--                                  schemaName="public"-->
+<!--                                  tableName="product"-->
+<!--                                  constraintBody="price > 0"-->
+<!--                                  validate="true"/>-->
+        <rollback>
+            <dropTable tableName="product"/>
+            <dropSequence sequenceName="product_seq"/>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>

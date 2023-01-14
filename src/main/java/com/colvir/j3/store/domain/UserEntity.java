@@ -15,7 +15,7 @@ import javax.persistence.*;
 public class UserEntity {
 
     @Id
-    @GeneratedValue(generator = "gen_user")
+    @GeneratedValue(generator = "user_seq")
     private Long id;
 
     @Column

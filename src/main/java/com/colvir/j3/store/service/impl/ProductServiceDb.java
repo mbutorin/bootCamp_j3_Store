@@ -71,4 +71,11 @@ public class ProductServiceDb implements ProductService {
                 .orElseThrow(() -> new UserNotFoundException("Can't find user by login: " + name));
     }
 
+    @Override
+    public List<ProductDto> findAll() {
+        return StreamSupport.stream(productRepository.findAll().spliterator(), false)
+                .map(ProductDto::new)
+                .collect(Collectors.toList());
+    }
+
 }

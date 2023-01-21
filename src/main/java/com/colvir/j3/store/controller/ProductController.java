@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/product")
@@ -48,4 +49,10 @@ public class ProductController {
     public void deleteByName(@RequestParam(name = "name") final String name) {
         productService.deleteByName(name);
     }
+
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    public List<ProductDto> findByAll() {
+        return productService.findAll();
+    }
+
 }

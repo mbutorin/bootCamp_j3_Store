@@ -10,4 +10,6 @@ public interface ProductService {
     ProductDto update(ProductDto productDto);
     void deleteByName(String name);
     ProductDto findByName(String name);
+
+    List<ProductDto> findAll();
 }

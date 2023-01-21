@@ -10,7 +10,7 @@
                         dataType="bigint"
                         incrementBy="1"
                         minValue="0"
-                        startValue="1"
+                        startValue="20"
                         schemaName="public"/>
         <createTable tableName="product_group">
             <column name="id" type="int">
@@ -23,9 +23,47 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+        <addForeignKeyConstraint  constraintName="fk_product_grp_parent_id"
+                                  schemaName="public"
+                                  baseTableName="product_group"
+                                  baseColumnNames="parent_id"
+                                  referencedTableName="product_group"
+                                  referencedColumnNames="id"
+                                  onDelete="RESTRICT"
+                                  onUpdate="RESTRICT"
+                                  validate="true"/>
         <rollback>
             <dropTable tableName="product_group"/>
             <dropSequence sequenceName="product_grp_seq"/>
         </rollback>
+        <insert tableName="product_group">
+            <column  name="id"  value="1"/>
+            <column  name="name"  value="Food"/>
+        </insert>
+        <insert tableName="product_group">
+            <column  name="id"  value="2"/>
+            <column  name="parent_id"  value="1"/>
+            <column  name="name"  value="Bakery and Bread"/>
+        </insert>
+        <insert tableName="product_group">
+            <column  name="id"  value="3"/>
+            <column  name="parent_id"  value="2"/>
+            <column  name="name"  value="Bread"/>
+        </insert>
+        <insert tableName="product_group">
+            <column  name="id"  value="4"/>
+            <column  name="parent_id"  value="2"/>
+            <column  name="name"  value="Cookies"/>
+        </insert>
+        <insert tableName="product_group">
+            <column  name="id"  value="5"/>
+            <column  name="parent_id"  value="2"/>
+            <column  name="name"  value="Cakes"/>
+        </insert>
+        <insert tableName="product_group">
+            <column  name="id"  value="6"/>
+            <column  name="parent_id"  value="2"/>
+            <column  name="name"  value="Pies"/>
+        </insert>
     </changeSet>
 </databaseChangeLog>

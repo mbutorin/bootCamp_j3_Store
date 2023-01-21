@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Setter
 @Getter
@@ -20,21 +21,23 @@ public class ProductEntity {
 
     @Column
     private String name;
-    @Column
-    private Integer group_id;
+
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "group_id", referencedColumnName = "id")
+    private ProductGroupEntity groupId;
     @Column
     private String producer;
     @Column
     private String type;
     @Column
-    private Float price;
+    private BigDecimal price;
     @Column
     private Integer qty;
 
     public ProductEntity(final ProductDto productDto) {
         this.id = productDto.getId();
         this.name = productDto.getName();
-        this.group_id = productDto.getGroup_id();
+        this.groupId = productDto.getGroupId();
         this.producer = productDto.getProducer();
         this.type = productDto.getType();
         this.price = productDto.getPrice();

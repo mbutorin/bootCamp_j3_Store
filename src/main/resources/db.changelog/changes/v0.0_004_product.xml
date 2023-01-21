@@ -22,7 +22,7 @@
             <column name="group_id" type="int"/>
             <column name="producer" type="varchar(100)"/>
             <column name="type" type="varchar(50)"/>
-            <column name="price" type="number(18,2)" />
+            <column name="price" type="decimal(15,2)" />
             <column name="qty" type="int" />
         </createTable>
         <addForeignKeyConstraint  constraintName="fk_product_grp"

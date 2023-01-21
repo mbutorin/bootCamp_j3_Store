@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <changeSet id="order" author="Mikhail Butorin">
+        <createTable tableName="order_list">
+            <column name="order_id" type="bigint" />
+            <column name="product_id" type="bigint" />
+            <column name="qty" type="int" remarks="quantity" />
+            <column name="status" type="int" remarks="new, shipping, received, returned" />
+        </createTable>
+        <addForeignKeyConstraint  constraintName="fk_orderlist_order"
+                                  schemaName="public"
+                                  baseTableName="order_list"
+                                  baseColumnNames="order_id"
+                                  referencedTableName="order"
+                                  referencedColumnNames="id"
+                                  onDelete="RESTRICT"
+                                  onUpdate="RESTRICT"
+                                  validate="true"/>
+        <addForeignKeyConstraint  constraintName="fk_orderlist_product"
+                                  schemaName="public"
+                                  baseTableName="order_list"
+                                  baseColumnNames="product_id"
+                                  referencedTableName="product"
+                                  referencedColumnNames="id"
+                                  onDelete="RESTRICT"
+                                  onUpdate="RESTRICT"
+                                  validate="true"/>
+        <rollback>
+            <dropTable tableName="order_list"/>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <changeSet id="buyer" author="Mikhail Butorin">
+        <createTable tableName="cart">
+            <column name="buyer_id" type="bigint" />
+            <column name="product_id" type="bigint" />
+            <column name="qty" type="int" />
+        </createTable>
+        <addForeignKeyConstraint  constraintName="fk_cart_buyer"
+                                  schemaName="public"
+                                  baseTableName="cart"
+                                  baseColumnNames="buyer_id"
+                                  referencedTableName="buyer"
+                                  referencedColumnNames="user_id"
+                                  onDelete="RESTRICT"
+                                  onUpdate="RESTRICT"
+                                  validate="true"/>
+        <addForeignKeyConstraint  constraintName="fk_cart_product"
+                                  schemaName="public"
+                                  baseTableName="cart"
+                                  baseColumnNames="product_id"
+                                  referencedTableName="product"
+                                  referencedColumnNames="id"
+                                  onDelete="RESTRICT"
+                                  onUpdate="RESTRICT"
+                                  validate="true"/>
+        <rollback>
+            <dropTable tableName="cart"/>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>

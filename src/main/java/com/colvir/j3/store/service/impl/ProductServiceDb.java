@@ -1,25 +1,17 @@
 package com.colvir.j3.store.service.impl;
 
 import com.colvir.j3.store.domain.ProductEntity;
-import com.colvir.j3.store.domain.UserEntity;
 import com.colvir.j3.store.dto.ProductDto;
-import com.colvir.j3.store.dto.ProductGroupDto;
-import com.colvir.j3.store.dto.UserDto;
-import com.colvir.j3.store.exception.UserBadData;
+import com.colvir.j3.store.exception.RecordBadData;
+import com.colvir.j3.store.exception.RecordNotFoundException;
 import com.colvir.j3.store.exception.UserNotFoundException;
 import com.colvir.j3.store.repository.ProductRepository;
-import com.colvir.j3.store.repository.UserRepository;
 import com.colvir.j3.store.service.ProductService;
-import com.colvir.j3.store.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.jpa.repository.Lock;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.LockModeType;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 @Service
@@ -36,7 +28,7 @@ public class ProductServiceDb implements ProductService {
                     )
             );
         } catch (Exception e) {
-            throw new UserBadData("Can't save product: " + e.getMessage());
+            throw new RecordBadData("Can't save product: " + e.getMessage());
         }
     }
 
@@ -55,7 +47,7 @@ public class ProductServiceDb implements ProductService {
         try {
             return new ProductDto(productRepository.save(current));
         } catch (Exception e) {
-            throw new UserBadData("Can't save product: " + e.getMessage());
+            throw new RecordBadData("Can't save product: " + e.getMessage());
         }
     }
 
@@ -65,10 +57,17 @@ public class ProductServiceDb implements ProductService {
     }
 
     @Override
+    public ProductDto findById(Long id) {
+        return productRepository.findById(id)
+                .map(ProductDto::new)
+                .orElseThrow(() -> new RecordNotFoundException("Can't find product by id: " + id));
+    }
+
+    @Override
     public ProductDto findByName(final String name) {
         return productRepository.findByName(name)
                 .map(ProductDto::new)
-                .orElseThrow(() -> new UserNotFoundException("Can't find user by login: " + name));
+                .orElseThrow(() -> new RecordNotFoundException("Can't find product by name: " + name));
     }
 
     @Override

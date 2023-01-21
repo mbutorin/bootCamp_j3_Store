@@ -1,6 +1,8 @@
 package com.colvir.j3.store.controller;
 
 import com.colvir.j3.store.exception.NotImplementedException;
+import com.colvir.j3.store.exception.RecordBadData;
+import com.colvir.j3.store.exception.RecordNotFoundException;
 import com.colvir.j3.store.exception.UserNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -21,6 +23,16 @@ public class GlobalExceptionConfig {
 
     @ExceptionHandler(NotImplementedException.class)
     public ResponseEntity<String> handleNotImplementedException(final @NonNull NotImplementedException e) {
+        return createResponse(HttpStatus.PRECONDITION_FAILED, e);
+    }
+
+    @ExceptionHandler(RecordBadData.class)
+    public ResponseEntity<String> handleRecordBadData(final @NonNull RecordBadData e) {
+        return createResponse(HttpStatus.PRECONDITION_FAILED, e);
+    }
+
+    @ExceptionHandler(RecordNotFoundException.class)
+    public ResponseEntity<String> handleRecordNotFoundException(final @NonNull RecordNotFoundException e) {
         return createResponse(HttpStatus.PRECONDITION_FAILED, e);
     }
 

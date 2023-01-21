@@ -22,7 +22,8 @@ public class ProductEntity {
     @Column
     private String name;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
+    // Cascade Types (пример на Hibernate и Spring Boot) - SYSOUT https://sysout.ru/tipy-cascade-primer-na-hibernate-i-spring-boot/
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "group_id", referencedColumnName = "id")
     private ProductGroupEntity groupId;
     @Column

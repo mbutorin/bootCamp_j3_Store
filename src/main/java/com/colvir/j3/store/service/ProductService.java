@@ -9,6 +9,7 @@ public interface ProductService {
     ProductDto save(ProductDto productDto);
     ProductDto update(ProductDto productDto);
     void deleteByName(String name);
+    ProductDto findById(Long id);
     ProductDto findByName(String name);
 
     List<ProductDto> findAll();

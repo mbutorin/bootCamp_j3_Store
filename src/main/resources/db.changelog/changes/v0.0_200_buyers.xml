@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <changeSet id="buyer" author="Mikhail Butorin">
+        <createTable tableName="buyer">
+            <column name="user_id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="nickname" type="varchar(60)" />
+            <column name="comment" type="varchar(2000)" />
+        </createTable>
+        <addForeignKeyConstraint  constraintName="fk_buyer_user"
+                                  schemaName="public"
+                                  baseTableName="buyer"
+                                  baseColumnNames="user_id"
+                                  referencedTableName="user"
+                                  referencedColumnNames="id"
+                                  onDelete="RESTRICT"
+                                  onUpdate="RESTRICT"
+                                  validate="true"/>
+        <rollback>
+            <dropTable tableName="buyer"/>
+            <dropSequence sequenceName="buyer_seq"/>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>

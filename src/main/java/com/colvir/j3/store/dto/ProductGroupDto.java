@@ -12,7 +12,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ProductGroupDto {
     private Integer id;
-    private ProductGroupEntity parentGroup;
+    private Integer parentGroup;
     private String name;
 
     public ProductGroupDto(final ProductGroupEntity entity) {

@@ -68,11 +68,6 @@ public class ProductReviewServiceDb implements ProductReviewService {
     }
 
     @Override
-    public List<ProductReviewDto> findByUserLogin(String userLogin) {
-        return productReviewRepository.findByUserLogin(userLogin);
-    }
-
-    @Override
     public List<ProductReviewDto> findAll() {
         return StreamSupport.stream(productReviewRepository.findAll().spliterator(), false)
                 .map(ProductReviewDto::new)

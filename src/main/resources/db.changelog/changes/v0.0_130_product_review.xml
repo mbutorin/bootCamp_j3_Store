@@ -5,17 +5,7 @@
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
     <changeSet id="product" author="Mikhail Butorin">
-        <createSequence sequenceName="product_review_seq"
-                        cycle="false"
-                        dataType="bigint"
-                        incrementBy="1"
-                        minValue="0"
-                        startValue="1"
-                        schemaName="public"/>
         <createTable tableName="product_review">
-            <column name="id" type="bigint">
-                <constraints primaryKey="true" nullable="false"/>
-            </column>
             <column name="product_id" type="bigint" />
             <column name="user_id" type="bigint" />
             <column name="create_dt" type="timestamp" />
@@ -44,7 +34,6 @@
                                   validate="true"/>
         <rollback>
             <dropTable tableName="product_review"/>
-            <dropSequence sequenceName="product_review_seq"/>
         </rollback>
     </changeSet>
 </databaseChangeLog>

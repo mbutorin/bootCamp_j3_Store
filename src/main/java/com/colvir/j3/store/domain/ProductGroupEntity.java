@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Setter
 @Getter
@@ -16,15 +17,16 @@ public class ProductGroupEntity {
 
     @Id
     @GeneratedValue(generator = "product_grp_seq")
-    private Integer id;
+    private int id;
 
-    @OneToOne
-    @JoinColumn(name = "parent_id", referencedColumnName = "id")
-    private ProductGroupEntity parentGroup;
+    @Column(name="parent_id")
+    private int parentGroup;
 
     @Column
     private String name;
 
+    @ManyToMany(mappedBy = "groups")
+    Set<ProductEntity> products;
 
     public ProductGroupEntity(final ProductGroupDto productGroupDto) {
         this.id = productGroupDto.getId();

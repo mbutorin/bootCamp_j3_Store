@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Setter
 @Getter
@@ -28,6 +29,9 @@ public class UserEntity {
 
     @Column
     private Integer role;
+
+    @OneToMany(mappedBy = "user")
+    private Set<ProductReviewEntity> userReviews;
 
 
     public UserEntity(final UserDto userDto) {

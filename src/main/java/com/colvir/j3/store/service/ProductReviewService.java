@@ -11,7 +11,6 @@ public interface ProductReviewService {
     ProductReviewDto update(ProductReviewDto productReviewDto);
     void deleteById(Long id);
     List<ProductReviewDto> findByProductId(Long productId);
-    List<ProductReviewDto> findByUserLogin(String userLogin);
 
     List<ProductReviewDto> findAll();
 }

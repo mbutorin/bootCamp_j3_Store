@@ -19,16 +19,15 @@ import java.sql.Timestamp;
 public class ProductReviewDto {
 
     private Long id;
-    private ProductEntity product;
-    private UserEntity user;
+    private Long product_id;
+    private Long user_id;
     private Timestamp createDateTime;
     private Timestamp correctDateTime;
     private String review;
 
     public ProductReviewDto(final ProductReviewEntity entity) {
-        this.id = entity.getId();
-        this.product = entity.getProductId();
-        this.user = entity.getUserId();
+        this.product_id = entity.getProduct().getId();
+        this.user_id = entity.getUser().getId();
         this.createDateTime = entity.getCreateDateTime();
         this.correctDateTime = entity.getCorrectDateTime();
         this.review = entity.getReview();

@@ -9,4 +9,5 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends CrudRepository<UserEntity, Long> {
     Optional<UserEntity> findByLogin(String login);
+    Optional<UserEntity> findById(Long id);
 }

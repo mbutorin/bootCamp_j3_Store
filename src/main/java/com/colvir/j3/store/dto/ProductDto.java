@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
 
 @Setter
 @Getter
@@ -16,16 +18,16 @@ import java.math.BigDecimal;
 public class ProductDto {
     private Long id;
     private String name;
-    private ProductGroupEntity groupId;
     private String producer;
     private String type;
     private BigDecimal price;
     private Integer qty;
 
+    private Set<ProductReviewDto> reviews = new HashSet<>();
+
     public ProductDto(final ProductEntity entity) {
         this.id = entity.getId();
         this.name = entity.getName();
-        this.groupId = entity.getGroupId();
         this.producer = entity.getProducer();
         this.type = entity.getType();
         this.price = entity.getPrice();

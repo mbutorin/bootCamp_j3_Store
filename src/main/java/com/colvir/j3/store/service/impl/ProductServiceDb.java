@@ -39,7 +39,6 @@ public class ProductServiceDb implements ProductService {
         final ProductEntity current = productRepository.findById(productDto.getId())
                 .orElseThrow(() -> new UserNotFoundException("Can't find product by id " + productDto.getId()));
         current.setName(productDto.getName());
-        current.setGroupId(productDto.getGroupId());
         current.setType(productDto.getType());
         current.setProducer(productDto.getProducer());
         current.setPrice(productDto.getPrice());

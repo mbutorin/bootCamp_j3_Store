@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Set;
 
 @Setter
 @Getter
@@ -23,9 +24,12 @@ public class ProductEntity {
     private String name;
 
     // Cascade Types (пример на Hibernate и Spring Boot) - SYSOUT https://sysout.ru/tipy-cascade-primer-na-hibernate-i-spring-boot/
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "group_id", referencedColumnName = "id")
-    private ProductGroupEntity groupId;
+    @ManyToMany
+    @JoinTable(
+            name = "product_in_group",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "group_id"))
+    Set<ProductGroupEntity> groups;
     @Column
     private String producer;
     @Column
@@ -35,14 +39,22 @@ public class ProductEntity {
     @Column
     private Integer qty;
 
+    @OneToMany(mappedBy = "product")
+    private Set<ProductReviewEntity> reviews;
+
     public ProductEntity(final ProductDto productDto) {
         this.id = productDto.getId();
         this.name = productDto.getName();
-        this.groupId = productDto.getGroupId();
         this.producer = productDto.getProducer();
         this.type = productDto.getType();
         this.price = productDto.getPrice();
         this.qty = productDto.getQty();
+    }
+
+    public ProductEntity addReview(ProductReviewEntity review) {
+        reviews.add(review);
+        review.setProduct(this);
+        return this;
     }
 }
 

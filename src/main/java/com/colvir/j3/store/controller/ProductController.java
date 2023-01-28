@@ -45,6 +45,11 @@ public class ProductController {
         return productService.findByName(name);
     }
 
+    @RequestMapping(method = RequestMethod.GET)
+    public ProductDto findById(@RequestParam(name = "id") final Long id) {
+        return productService.findById(id);
+    }
+
     @RequestMapping(method = RequestMethod.DELETE)
     public void deleteByName(@RequestParam(name = "name") final String name) {
         productService.deleteByName(name);

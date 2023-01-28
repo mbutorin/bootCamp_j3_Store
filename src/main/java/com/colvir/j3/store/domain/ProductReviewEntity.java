@@ -2,6 +2,9 @@ package com.colvir.j3.store.domain;
 
 import com.colvir.j3.store.dto.ProductDto;
 import com.colvir.j3.store.dto.ProductReviewDto;
+import com.colvir.j3.store.repository.ProductRepository;
+import com.colvir.j3.store.repository.UserRepository;
+import com.colvir.j3.store.service.ProductService;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -19,18 +22,18 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 public class ProductReviewEntity {
 
-    @Id
-    @GeneratedValue(generator = "product_review_seq")
-    @Column(name = "id", nullable = false)
-    private Long id;
+    @EmbeddedId
+    private ProductReviewKey id;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "product_id", referencedColumnName = "id")
-    private ProductEntity productId;
+    @ManyToOne
+    @MapsId("productId")
+    @JoinColumn(name = "product_id")
+    private ProductEntity product;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private UserEntity userId;
+    @ManyToOne
+    @MapsId("userId")
+    @JoinColumn(name = "user_id")
+    private UserEntity user;
 
     @Column(name = "create_dt")
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm:ss.SSS")
@@ -42,9 +45,9 @@ public class ProductReviewEntity {
     private String review;
 
     public ProductReviewEntity(final ProductReviewDto productReviewDto) {
-        this.id = productReviewDto.getId();
-        this.productId = productReviewDto.getProduct();
-        this.userId = productReviewDto.getUser();
+//        this.product =
+//        this.user = UserRepository.  productReviewDto.getUser_id();
+        // как найти по ИД UserEntity / ProductEntity ????????????????????????????????????????????
         this.createDateTime = productReviewDto.getCreateDateTime();
         this.correctDateTime = productReviewDto.getCorrectDateTime();
         this.review = productReviewDto.getReview();

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <changeSet id="product" author="Mikhail Butorin">
+        <createTable tableName="product_in_group">
+            <column name="product_id" type="bigint" />
+            <column name="group_id" type="int"/>
+        </createTable>
+        <addForeignKeyConstraint  constraintName="fk_pig_product"
+                                  schemaName="public"
+                                  baseTableName="product_in_group"
+                                  baseColumnNames="product_id"
+                                  referencedTableName="product"
+                                  referencedColumnNames="id"
+                                  onDelete="RESTRICT"
+                                  onUpdate="RESTRICT"
+                                  validate="true"/>
+        <addForeignKeyConstraint  constraintName="fk_pig_grp"
+                                  schemaName="public"
+                                  baseTableName="product_in_group"
+                                  baseColumnNames="group_id"
+                                  referencedTableName="product_group"
+                                  referencedColumnNames="id"
+                                  onDelete="RESTRICT"
+                                  onUpdate="RESTRICT"
+                                  validate="true"/>
+        <rollback>
+            <dropTable tableName="product_in_group"/>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>

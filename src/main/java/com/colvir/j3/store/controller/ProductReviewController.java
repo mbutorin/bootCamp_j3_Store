@@ -47,7 +47,7 @@ public class ProductReviewController {
         productReviewService.deleteById(id);
     }
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value="/all_by_product", method = RequestMethod.GET)
     public List<ProductReviewDto> findByProductId(@RequestParam(name = "product_id") final Long product_id) {
         return productReviewService.findByProductId(product_id);
     }

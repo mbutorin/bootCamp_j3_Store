@@ -33,9 +33,9 @@ public class UserServiceDb implements UserService {
     public UserDto update(final UserDto userDto) {
         final UserEntity current = userRepository.findById(userDto.getId())
                 .orElseThrow(() -> new UserNotFoundException("Can't find user by id " + userDto.getId()));
-        current.setLogin(userDto.getLogin());
-        current.setName(userDto.getName());
-        current.setRole(userDto.getRole());
+        current.setUsername(userDto.getLogin());
+        current.setNickname(userDto.getNickname());
+        current.setUserpwd(userDto.getPassword());
         try {
             return new UserDto(userRepository.save(current));
         } catch (Exception e) {
@@ -50,9 +50,16 @@ public class UserServiceDb implements UserService {
 
     @Override
     public UserDto findByLogin(final String login) {
-        return userRepository.findByLogin(login)
+        return userRepository.findByUsername(login)
                 .map(UserDto::new)
                 .orElseThrow(() -> new UserNotFoundException("Can't find user by login: " + login));
+    }
+
+    @Override
+    public UserDto findById(Long id) {
+        return userRepository.findById(id)
+                .map(UserDto::new)
+                .orElseThrow(() -> new UserNotFoundException("Can't find user by ID: " + id));
     }
 
 }

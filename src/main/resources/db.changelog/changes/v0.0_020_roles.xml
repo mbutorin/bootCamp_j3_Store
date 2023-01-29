@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <changeSet id="user" author="Mikhail Butorin">
+        <createSequence sequenceName="role_seq"
+                        cycle="false"
+                        dataType="bigint"
+                        incrementBy="1"
+                        minValue="0"
+                        startValue="1"
+                        schemaName="public"/>
+        <createTable tableName="roles">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addUniqueConstraint  constraintName="uk_role_name"
+                              schemaName="public"
+                              tableName="roles"
+                              columnNames="name"
+                              validate="true"/>
+        <rollback>
+            <dropTable tableName="roles"/>
+            <dropSequence sequenceName="role_seq"/>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>

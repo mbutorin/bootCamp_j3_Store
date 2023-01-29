@@ -45,7 +45,7 @@ public class ProductController {
         return productService.findByName(name);
     }
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET, value = "item_by_id")
     public ProductDto findById(@RequestParam(name = "id") final Long id) {
         return productService.findById(id);
     }

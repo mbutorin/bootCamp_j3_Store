@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.colvir.j3.store</groupId>
-    <artifactId>study_store</artifactId>
+    <artifactId>mvb_study_store</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
@@ -98,6 +98,15 @@
             <artifactId>mybatis</artifactId>
             <version>3.5.7</version>
         </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-security</artifactId>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>io.jsonwebtoken</groupId>-->
+<!--            <artifactId>jjwt</artifactId>-->
+<!--            <version>0.9.1</version>-->
+<!--        </dependency>-->
     </dependencies>
 
 </project>

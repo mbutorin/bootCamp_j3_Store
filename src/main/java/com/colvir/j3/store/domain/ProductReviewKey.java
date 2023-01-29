@@ -1,5 +1,6 @@
 package com.colvir.j3.store.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,6 +13,7 @@ import java.util.Objects;
 @Setter
 @Getter
 @NoArgsConstructor
+//@AllArgsConstructor
 public class ProductReviewKey implements Serializable {
 //    private static final long serialVersionUID = 3743426181899305753L;
 

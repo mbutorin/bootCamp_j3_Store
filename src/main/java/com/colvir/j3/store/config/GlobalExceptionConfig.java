@@ -1,4 +1,4 @@
-package com.colvir.j3.store.controller;
+package com.colvir.j3.store.config;
 
 import com.colvir.j3.store.exception.NotImplementedException;
 import com.colvir.j3.store.exception.RecordBadData;
@@ -16,24 +16,18 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class GlobalExceptionConfig {
 
-    @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity<String> handleUserNotFoundException(final @NonNull UserNotFoundException e) {
-        return createResponse(HttpStatus.PRECONDITION_FAILED, e);
-    }
-
-    @ExceptionHandler(NotImplementedException.class)
-    public ResponseEntity<String> handleNotImplementedException(final @NonNull NotImplementedException e) {
-        return createResponse(HttpStatus.PRECONDITION_FAILED, e);
-    }
-
-    @ExceptionHandler(RecordBadData.class)
-    public ResponseEntity<String> handleRecordBadData(final @NonNull RecordBadData e) {
-        return createResponse(HttpStatus.PRECONDITION_FAILED, e);
-    }
-
-    @ExceptionHandler(RecordNotFoundException.class)
-    public ResponseEntity<String> handleRecordNotFoundException(final @NonNull RecordNotFoundException e) {
-        return createResponse(HttpStatus.PRECONDITION_FAILED, e);
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<String> handleAnyException(final @NonNull Exception e) throws Exception {
+        if (e instanceof UserNotFoundException) {
+            return createResponse(HttpStatus.NOT_FOUND, e);
+        } else if (e instanceof NotImplementedException) {
+            return createResponse(HttpStatus.NOT_IMPLEMENTED, e);
+        } else if (e instanceof RecordBadData) {
+            return createResponse(HttpStatus.UNPROCESSABLE_ENTITY, e);
+        } else if (e instanceof RecordNotFoundException) {
+            return createResponse(HttpStatus.NOT_FOUND, e);
+        }
+        throw e;
     }
 
     private ResponseEntity<String> createResponse(@NonNull final HttpStatus status, @NonNull final Exception e) {

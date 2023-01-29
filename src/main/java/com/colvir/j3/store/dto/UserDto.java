@@ -1,6 +1,7 @@
 package com.colvir.j3.store.dto;
 
 import com.colvir.j3.store.domain.UserEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,14 +13,17 @@ import lombok.Setter;
 @AllArgsConstructor
 public class UserDto {
     private Long id;
+
     private String login;
-    private String name;
-    private Integer role;
+    private String nickname;
+
+//    @JsonIgnore
+    private String password;
 
     public UserDto(final UserEntity entity) {
         this.id = entity.getId();
-        this.login = entity.getLogin();
-        this.name = entity.getName();
-        this.role = entity.getRole();
+        this.login = entity.getUsername();
+        this.nickname = entity.getNickname();
+        this.password = entity.getUserpwd();
     }
 }

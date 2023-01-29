@@ -51,10 +51,9 @@ public class ProductEntity {
         this.qty = productDto.getQty();
     }
 
-    public ProductEntity addReview(ProductReviewEntity review) {
-        reviews.add(review);
+    public void addReview(ProductReviewEntity review) {
+        this.reviews.add(review);
         review.setProduct(this);
-        return this;
     }
 }
 

@@ -52,7 +52,7 @@ public class ProductReviewEntity {
 //        this.product = productReviewDto.getProduct_id();
 //        this.user = UserRepository.  productReviewDto.getUser_id();
         // как найти по ИД UserEntity / ProductEntity ????????????????????????????????????????????
-        this.user = UserDto(userService.findById(productReviewDto.getUser_id()));
+//        this.user = UserDto(userService.findById(productReviewDto.getUser_id()));
 
         this.createDateTime = productReviewDto.getCreateDateTime();
         this.correctDateTime = productReviewDto.getCorrectDateTime();

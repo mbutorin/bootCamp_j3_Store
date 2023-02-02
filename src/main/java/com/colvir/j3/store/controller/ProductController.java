@@ -3,20 +3,18 @@ package com.colvir.j3.store.controller;
 import com.colvir.j3.store.dto.ProductDto;
 import com.colvir.j3.store.dto.UserDto;
 import com.colvir.j3.store.service.ProductService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
 
 @RestController
+@Api( tags = "Products")
 @RequestMapping("/product")
 public class ProductController {
 
@@ -31,6 +29,8 @@ public class ProductController {
 
     @ResponseStatus(code = HttpStatus.CREATED)
     @RequestMapping(method = RequestMethod.POST)
+    @ApiOperation(value = "This method is used to create a new product")
+    @GetMapping
     public ProductDto save(@Valid @RequestBody final ProductDto productDto) {
         return productService.save(productDto);
     }

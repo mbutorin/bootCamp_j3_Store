@@ -75,12 +75,10 @@ public class AuthServiceImplementation implements AuthService {
                 .setExpiration(new Date((new Date()).getTime() + jwtExpiration))
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .compact();
-//        return userPrincipal.getUsername();
     }
 
     public String getUserNameFromToken(String token) {
         return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
-//        return token;
     }
 
     public boolean tokenIsValid(final String authToken) {
@@ -100,8 +98,6 @@ public class AuthServiceImplementation implements AuthService {
         }
 
         return false;
-//        return true;
-
     }
 
 }

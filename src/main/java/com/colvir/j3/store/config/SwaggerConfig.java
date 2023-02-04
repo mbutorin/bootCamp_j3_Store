@@ -16,29 +16,30 @@ import java.util.Collections;
 import java.util.List;
 
 @EnableOpenApi
-//@Configuration
+@Configuration
 public class SwaggerConfig {
 
     @Bean
     public Docket api() {
-//        HttpAuthenticationScheme authenticationScheme
-//                = HttpAuthenticationScheme.JWT_BEARER_BUILDER.name("Authorization").build();
+        HttpAuthenticationScheme authenticationScheme
+                = HttpAuthenticationScheme.JWT_BEARER_BUILDER.name("Authorization").build();
 
-//        return new Docket(DocumentationType.OAS_30)
-//                .select()
-//                .apis(RequestHandlerSelectors.any())
-//                .paths(PathSelectors.any())
-//                .build()
-//                .securityContexts(Collections.singletonList(securityContext()))
-//                .securitySchemes(Collections.singletonList(authenticationScheme));
-        return new Docket(DocumentationType.SWAGGER_2)
+        return new Docket(DocumentationType.OAS_30)
                 .apiInfo(apiInfo())
-                .securityContexts(Arrays.asList(securityContext()))
-                .securitySchemes(Arrays.asList(apiKey()))
                 .select()
                 .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
-                .build();
+                .build()
+                .securityContexts(Collections.singletonList(securityContext()))
+                .securitySchemes(Collections.singletonList(authenticationScheme));
+//        return new Docket(DocumentationType.OAS_30)
+//                .apiInfo(apiInfo())
+//                .securityContexts(Arrays.asList(securityContext()))
+//                .securitySchemes(Arrays.asList(apiKey()))
+//                .select()
+//                .apis(RequestHandlerSelectors.any())
+//                .paths(PathSelectors.any())
+//                .build();
     }
 
     private SecurityContext securityContext() {
@@ -49,8 +50,8 @@ public class SwaggerConfig {
         final AuthorizationScope authorizationScope = new AuthorizationScope("global", "accessEverything");
         final AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
         authorizationScopes[0] = authorizationScope;
-//        return Collections.singletonList(new SecurityReference("Authorization", authorizationScopes));
-        return Arrays.asList(new SecurityReference("JWT", authorizationScopes));
+        return Collections.singletonList(new SecurityReference("Authorization", authorizationScopes));
+//        return Arrays.asList(new SecurityReference("JWT", authorizationScopes));
     }
 
     private ApiKey apiKey() {
@@ -59,11 +60,11 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfo(
-                "MButorin Store REST API",
-                "Some custom description of API.",
-                "1.0",
+                "MButorin Store API",
+                "Colvir Bootcamp Java, course work J057",
+                "0.1",
                 "Terms of service",
-                new Contact("Mikhail Butorin", "www.colvir.com", "mbutorin@colvir.com"),
+                new Contact("Colvir", "http://www.colvir.com", "mbutorin@colvir.com"),
                 "License of API",
                 "API license URL",
                 Collections.emptyList());

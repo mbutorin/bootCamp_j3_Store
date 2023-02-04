@@ -10,7 +10,7 @@
                         dataType="bigint"
                         incrementBy="1"
                         minValue="0"
-                        startValue="1"
+                        startValue="10"
                         schemaName="public"/>
         <createTable tableName="user">
             <column name="id" type="bigint">
@@ -35,6 +35,12 @@
                               tableName="user"
                               columnNames="username"
                               validate="true"/>
+        <insert tableName="user">
+            <column  name="id"  value="1"/>
+            <column  name="username"  value="colvir"/>
+            <column  name="password"  value="$2a$10$8Fb4C2mhRwNwzAU9p0y8Je95lz59OVyKAeATOVNEA2ZsTZzeW8P8."/>
+            <column  name="nickname"  value="Colvir User"/>
+        </insert>
         <rollback>
             <dropTable tableName="user"/>
             <dropSequence sequenceName="user_seq"/>

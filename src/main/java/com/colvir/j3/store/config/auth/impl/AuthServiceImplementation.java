@@ -28,7 +28,7 @@ public class AuthServiceImplementation implements AuthService {
     @Value("${mbutorin.app.jwtSecret}")
     private String jwtSecret;
 
-    @Value("${mbutorin.app.jwtExpirationMs}")
+    @Value("18000000")
     private int jwtExpiration;
 
     @Override
@@ -98,6 +98,7 @@ public class AuthServiceImplementation implements AuthService {
         }
 
         return false;
+//        return true;
     }
 
 }

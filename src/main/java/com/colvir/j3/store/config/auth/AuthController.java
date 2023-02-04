@@ -8,6 +8,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,6 +41,12 @@ public class AuthController {
     );
   }
 
+  @RequestMapping(value = "/gen_test_pwd", method = RequestMethod.POST)
+  public String generatePassword(String open_pass) {
+    /* mbutorin debug method to create first user*/
+    BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+    return bCryptPasswordEncoder.encode(open_pass);
+  }
 
 //  @Autowired
 //  AuthenticationManager authenticationManager;
